@@ -1,0 +1,337 @@
+<!-- <style>
+  .invisibile {
+    display: none;
+  }
+  .group {
+    background: white;
+    box-shadow: 0 7px 14px 0 rgba(49, 49, 93, 0.1),
+      0 3px 6px 0 rgba(0, 0, 0, 0.08);
+    border-radius: 4px;
+    margin-bottom: 20px;
+  }
+
+  label {
+    position: relative;
+    color: #8898aa;
+    font-weight: 300;
+    height: 40px;
+    line-height: 40px;
+    margin-left: 20px;
+    display: flex;
+    flex-direction: row;
+  }
+
+  .group label:not(:last-child) {
+    border-bottom: 1px solid #f0f5fa;
+  }
+
+  label > span {
+    width: 80px;
+    text-align: right;
+    margin-right: 30px;
+  }
+
+  .field {
+    background: transparent;
+    font-weight: 300;
+    border: 0;
+    color: #31325f;
+    outline: none;
+    flex: 1;
+    padding-right: 10px;
+    padding-left: 10px;
+    cursor: text;
+  }
+
+  .field::-webkit-input-placeholder {
+    color: #cfd7e0;
+  }
+  .field::-moz-placeholder {
+    color: #cfd7e0;
+  }
+
+  #success {
+    text-align: center;
+  }
+  #success p {
+    font-weight: bold;
+  }
+
+  button {
+    float: left;
+    display: block;
+    background: #666ee8;
+    color: white;
+    box-shadow: 0 7px 14px 0 rgba(49, 49, 93, 0.1),
+      0 3px 6px 0 rgba(0, 0, 0, 0.08);
+    border-radius: 4px;
+    border: 0;
+    margin-top: 20px;
+    font-size: 15px;
+    font-weight: 400;
+    width: 100%;
+    height: 40px;
+    line-height: 38px;
+    outline: none;
+  }
+
+  button:focus {
+    background: #555abf;
+  }
+
+  button:active {
+    background: #43458b;
+  }
+</style>
+
+<script src="https://js.stripe.com/v3/"></script>
+
+<!-- placeholder for Elements -->
+<form
+  onsubmit="return false;"
+  id="setup-form"
+  data-secret=""
+  payment_method=""
+  customer-id=""
+>
+  <div class="group">
+    <label>
+      <span>Name</span>
+      <input
+        id="cardholder-name"
+        class="field"
+        type="text"
+        placeholder="Inserisci il tuo nome"
+      />
+    </label>
+    <label>
+      <span>Card</span>
+      <div id="card-element" class="field"></div>
+    </label>
+  </div>
+  <div class="button-container">
+    <button id="card-button">Pre-Ordina</button>
+  </div>
+</form>
+<div id="success" class="invisibile">
+  <img
+    src="https://i.ibb.co/VHfHLNT/success-icon.png"
+    alt="success"
+    width="100"
+  />
+  <p>
+    La transazione è avvenuta con successo . Ti ricordiamo che l'importo non è
+    stato ancora addebbitato sul tuo conto . Ti arriverà un SMS di conferma da
+    parte del ristoratore .
+  </p>
+  <button id="newsletter" style="background: #74b549">
+    Iscriviti alla newsletter
+  </button>
+</div>
+
+<script>
+  var stripe = Stripe("Search for Propertiess's Valore");
+
+  var elements = stripe.elements();
+  var cardElement = elements.create("card", {
+    style: {
+      base: {
+        iconColor: "#666EE8",
+        color: "#31325F",
+        lineHeight: "40px",
+        fontWeight: 300,
+        fontFamily: "Helvetica Neue",
+        fontSize: "15px",
+
+        "::placeholder": {
+          color: "#CFD7E0",
+        },
+      },
+    },
+  });
+  cardElement.mount("#card-element");
+  var clientEmail = "Parent group's Order's Restaurant's User:filtered's email";
+  var encodeEmail = encodeURIComponent(clientEmail);
+
+  var cardholderName = document.getElementById("cardholder-name");
+  var cardButton = document.getElementById("card-button");
+  var clientSecret = cardButton.dataset.secret;
+  cardButton.addEventListener("click", function (ev) {
+    fetch(
+      "Search for Propertiess's Valoreapi/stripe/getClientSecret?order_id=Parent group's Order's Order ID&email_account=" +
+        encodeEmail,
+      {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+      }
+    ).then(function (result) {
+      // Handle server response (see Step 4)
+      result.json().then(function (json) {
+        clientSecret = json.client_secret;
+        customerId = json.customer_id;
+        document
+          .getElementById("setup-form")
+          .setAttribute("data-secret", clientSecret);
+        document
+          .getElementById("setup-form")
+          .setAttribute("customer-id", customerId);
+
+        //------ SALVA CARTA
+        stripe
+          .confirmCardSetup(clientSecret, {
+            payment_method: {
+              card: cardElement,
+              billing_details: {
+                name: cardholderName.value,
+              },
+            },
+          })
+          .then(function (result) {
+            if (result.error) {
+              alert("Si è verificato un errore nel pagamento, riprova!");
+            } else {
+              document
+                .getElementById("setup-form")
+                .setAttribute(
+                  "payment_method",
+                  result.setupIntent.payment_method
+                );
+              fetch(
+                "Search for Propertiess's Valoreapi/stripe/savePaymentMethod",
+                {
+                  method: "POST",
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify({
+                    order_id: "Parent group's Order's Order ID",
+                    payment_method: result.setupIntent.payment_method,
+                  }),
+                }
+              ).then(function (result) {
+                var form = document.getElementById("setup-form");
+                var success = document.getElementById("success");
+                var accountholder = document.getElementById("cardholder-name");
+
+                form.classList.add("invisibile");
+                accountholder.classList.add("invisibile");
+                success.classList.remove("invisibile");
+                var newsLetter = document.getElementById("newsletter");
+                newsLetter.onclick = function () {
+                  window.open(
+                    "Search for Propertiess's Valoreregistrati_client?risto=Parent group's Order's Restaurant's ID&mobile_phone=Parent group's Order's mobile phone"
+                  );
+                };
+              });
+            }
+          });
+      });
+    });
+  });
+</script>
+-->
+
+<script src="https://js.stripe.com/v3/"></script>
+
+<!-- SAVE DI CARD -->
+<script>
+  function acceptOrder() {
+    console.log("acceptOrder");
+    fetch(
+      "{{ $urlBase }}/api/stripe/payWithSaveCard?token=6d10f35d-6ba4-4e11-ba52-4221ff870809",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          amount: 10000,
+          currency: "eur",
+          //customer: document.getElementById("setup-form").getAttribute('customer-id'),
+          //payment_method: document.getElementById("setup-form").getAttribute('payment_method'),
+          email_account: "eraldolattari+l7@gmail.com",
+          application_fee_amount: 100,
+          order_id: "xyz",
+        }),
+      }
+    ).then(function (result) {
+      // Handle server response (see Step 4)
+      console.log(result);
+      result.json().then(function (json) {
+        alert(json);
+      });
+    });
+  }
+</script>
+<input id="cardholder-name" type="text" />
+<!-- placeholder for Elements -->
+<form
+  onsubmit="return false;"
+  id="setup-form"
+  data-secret=""
+  payment_method=""
+  customer-id=""
+>
+  <div id="card-element"></div>
+  <button id="card-button">Save Card</button>
+</form>
+<button onclick="acceptOrder()">Accept Order</button>
+<script>
+  var stripe = Stripe("pk_test_JKFmwJZHV0xX1eEmDXMbLXlT00NKrcGN86");
+  var elements = stripe.elements();
+  var cardElement = elements.create("card");
+  cardElement.mount("#card-element");
+  var cardholderName = document.getElementById("cardholder-name");
+  var cardButton = document.getElementById("card-button");
+  var clientSecret = cardButton.dataset.secret;
+  cardButton.addEventListener("click", function (ev) {
+    fetch(
+      "{{ $urlBase }}/api/stripe/getClientSecret?order_id=xyz&email_account=federica.passanante+testpagamenti@gmail.com",
+      {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+      }
+    ).then(function (result) {
+      // Handle server response (see Step 4)
+      result.json().then(function (json) {
+        clientSecret = json.client_secret;
+        customerId = json.customer_id;
+        document
+          .getElementById("setup-form")
+          .setAttribute("data-secret", clientSecret);
+        document
+          .getElementById("setup-form")
+          .setAttribute("customer-id", customerId);
+        //------ SALVA CARTA
+        stripe
+          .confirmCardSetup(clientSecret, {
+            payment_method: {
+              card: cardElement,
+              billing_details: {
+                name: cardholderName.value,
+              },
+            },
+          })
+          .then(function (result) {
+            if (result.error) {
+              alert("error01" + result.error.message);
+            } else {
+              alert("ok-01");
+              document
+                .getElementById("setup-form")
+                .setAttribute(
+                  "payment_method",
+                  result.setupIntent.payment_method
+                );
+              fetch("{{ $urlBase }}/api/stripe/savePaymentMethod", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                  order_id: "xyz",
+                  payment_method: result.setupIntent.payment_method,
+                }),
+              }).then(function (result) {
+                alert("payment_method saved");
+              });
+            }
+          });
+      });
+    });
+  });
+</script>

@@ -15,12 +15,11 @@
 
 .App-header {
   background-color: #282c34;
-  min-height: 100vh;
+
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
   color: white;
 }
 
@@ -28,11 +27,37 @@
   color: #61dafb;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+ul {
+  padding: 0;
+  margin: 20px auto;
+  list-style-type: none;
+}
+
+li {
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+  padding: 10px 0;
+  cursor: pointer;
+  min-width: 250px;
+}
+li:hover::after {
+  content: "\02A2F";
+  color: red;
+  font-size: 18px;
+  float: right;
+}
+li::before {
+  content: "\025A1";
+  font-size: 28px;
+  padding: 4px;
+}
+.container {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+li:last-child {
+  border: 0;
 }
