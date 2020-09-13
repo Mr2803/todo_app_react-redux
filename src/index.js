@@ -6,10 +6,24 @@ import * as serviceWorker from "./serviceWorker";
 import { createStore } from "redux";
 import storeReducer from "./reducers/index";
 import { Provider } from "react-redux";
-let todos = ["Studiare react", "Lavorare su bubble", "Chiamare Bobo"];
-console.log({ todos: [...todos] });
+let storetodos = {
+  activeFilter: "ALL",
+  todos: [
+    { id: 0, todo: "Studiare react", completed: false },
+    { id: 1, todo: "Lavorare su bubble", completed: true },
+    { id: 2, todo: "Chiamare Bobo", completed: false },
+  ],
+};
 
-const store = createStore(storeReducer, { todos: [...todos] });
+const store = createStore(
+  storeReducer,
+  { ...storetodos },
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
+
+store.subscribe(() => {
+  console.log(store.getState());
+});
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>

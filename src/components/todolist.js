@@ -1,16 +1,16 @@
 //componente presentazionale
 import React from "react";
 import SingleTodo from "./singleTodo";
-export default function todoList({ todos, removeTodo }) {
+export default function todoList({ todos, removeTodo, toggleTodo }) {
   return (
     <ul>
-      {todos.map((todo, i) => (
+      {todos.map((todo) => (
         //key è una parola speciale e dentro todo non avremmo accesso all id . Quindi definiamo un'altra proprietà
         <SingleTodo
-          id={i}
-          key={i}
-          onClick={removeTodo}
-          todo={todo}
+          id={todo.id}
+          key={todo.id}
+          onClick={toggleTodo}
+          todoItem={todo}
         ></SingleTodo>
       ))}
     </ul>

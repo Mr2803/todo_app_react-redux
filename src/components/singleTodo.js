@@ -1,9 +1,13 @@
 //componente presentazionale
 import React from "react";
-export default function singleTodo({ todo, onClick, id }) {
+export default function singleTodo({ todoItem, onClick, id }) {
   return (
-    <li onClick={() => onClick(id)}>
-      {todo}
+    <li
+      className={todoItem.completed ? "completed" : ""}
+      onClick={() => onClick(id)}
+    >
+      <span className={todoItem.completed ? "completed" : "uncomplete"}></span>
+      {todoItem.todo}
       {/* <button
       // onClick={() => {
       //   this.removeTodo(i);

@@ -10,7 +10,7 @@ import "./App.css";
 import Header from "./components/header";
 import AddNewTodo from "./containers/addnew";
 import MyTodoList from "./containers/mytodolist";
-
+import FooterFilter from "./containers/todofootercontainer";
 // console.log(store.getState());
 class App extends Component {
   // constructor() {
@@ -42,6 +42,7 @@ class App extends Component {
         <div className="container">
           <AddNewTodo></AddNewTodo>
           <MyTodoList />
+          <FooterFilter></FooterFilter>
         </div>
       </div>
     );
