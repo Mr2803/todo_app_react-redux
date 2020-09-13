@@ -10,11 +10,16 @@ let storetodos = {
   activeFilter: "ALL",
   todos: [
     { id: 0, todo: "Studiare react", completed: false },
-    { id: 1, todo: "Lavorare su bubble", completed: true },
+    { id: 1, todo: "Lavorare su bubble", completed: false },
     { id: 2, todo: "Chiamare Bobo", completed: false },
   ],
 };
-
+if (localStorage.getItem("mytodolist")) {
+  const currentState = JSON.parse(localStorage.getItem("mytodolist"));
+  if (currentState) {
+    storetodos = currentState;
+  }
+}
 const store = createStore(
   storeReducer,
   { ...storetodos },
@@ -22,7 +27,8 @@ const store = createStore(
 );
 
 store.subscribe(() => {
-  console.log(store.getState());
+  const currentState = JSON.stringify(store.getState());
+  localStorage.setItem("mytodolist", currentState);
 });
 ReactDOM.render(
   <React.StrictMode>
