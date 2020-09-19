@@ -3,9 +3,10 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
-import { createStore } from "redux";
+import { applyMiddleware, createStore, compose } from "redux";
 import storeReducer from "./reducers/index";
 import { Provider } from "react-redux";
+import logger from "redux-logger";
 let storetodos = {
   activeFilter: "ALL",
   todos: [
@@ -20,10 +21,31 @@ if (localStorage.getItem("mytodolist")) {
     storetodos = currentState;
   }
 }
+//window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+//creazione middleware
+// function logger({ getState, dispatch }) {
+//   console.log("MIDDLEWARE CHIAMATO");
+//   return function (next) {
+//     console.log("PRIMA DELLA CHIAMATA", getState());
+//     return function (action) {
+//       console.log("AZIONE", action);
+//       console.log("PRIMA DELL'AZIONE", getState());
+//       let result = next(action);
+//       console.log("DOPO L'AZIONE", getState());
+//       console.log("RISULTATO", result);
+//       return result;
+//     };
+//   };
+// }
+
+// const logger2 = ({ getState, dispatch }) => (next) => (action) => {
+//   return next(action);
+// };
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(
   storeReducer,
   { ...storetodos },
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  composeEnhancers(applyMiddleware(logger))
 );
 
 store.subscribe(() => {
