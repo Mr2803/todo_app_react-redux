@@ -11,8 +11,13 @@ import Header from "./components/header";
 import AddNewTodo from "./containers/addnew";
 import MyTodoList from "./containers/mytodolist";
 import FooterFilter from "./containers/todofootercontainer";
+import { getTodos } from "./actions/index";
+import { connect } from "react-redux";
 // console.log(store.getState());
 class App extends Component {
+  componentDidMount() {
+    this.props.getTodos();
+  }
   // constructor() {
   //   super();
   //   // this.state = {
@@ -49,4 +54,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default connect(null, { getTodos })(App);

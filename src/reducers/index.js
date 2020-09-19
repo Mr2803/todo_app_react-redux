@@ -1,17 +1,10 @@
 export default function storeReducer(state = {}, action) {
   switch (action.type) {
-    case "Aggiungi_todo":
+    case "Aggiungi_todo_FULFILLLED":
       return {
         ...state,
         activeFilter: "TODO",
-        todos: [
-          {
-            todo: action.payload.text,
-            completed: action.payload.completed,
-            id: state.todos.length,
-          },
-          ...state.todos,
-        ],
+        todos: [action.payload.data, ...state.todos],
       };
     case "Rimuovi_todo":
       return {
@@ -38,6 +31,12 @@ export default function storeReducer(state = {}, action) {
       return {
         ...state,
         activeFilter: action.activeFilter,
+      };
+    }
+    case "TODOS_FULFILLED": {
+      return {
+        ...state,
+        todos: action.payload.data,
       };
     }
     default:

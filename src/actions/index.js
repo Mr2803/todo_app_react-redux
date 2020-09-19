@@ -1,3 +1,12 @@
+import { API_URL } from "../config/config";
+import axios from "axios";
+export const getTodos = () => {
+  return {
+    type: "TODOS",
+    payload: axios.get(API_URL),
+  };
+};
+
 export const addTodo = (todo) => {
   //   const todo = this.todoInput.current.value;
   //   store.dispatch({
@@ -7,12 +16,13 @@ export const addTodo = (todo) => {
   //     //todo
   //   });
   return {
+    //Aggiungi_todo_FULFILLED
     //il type è obbligatorio
     type: "Aggiungi_todo",
-    payload: {
-      text: todo,
+    payload: axios.post(API_URL, {
+      todo: todo,
       completed: false,
-    },
+    }),
     //todo
   };
 };

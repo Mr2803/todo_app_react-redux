@@ -1,3 +1,19 @@
 {
-  "todos": []
+  "todos": [
+    {
+      "id": 0,
+      "todo": "Studiare react",
+      "completed": false
+    },
+    {
+      "todo": "andare",
+      "completed": false,
+      "id": 1
+    },
+    {
+      "todo": "sddaas",
+      "completed": false,
+      "id": 2
+    }
+  ]
 }
