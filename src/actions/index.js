@@ -42,7 +42,7 @@ export const removeTodo = (i) => {
     //todo
   };
 };
-export const toggleTodo = (i) => {
+export const toggleTodo = (i, value) => {
   console.log(i);
   //   store.dispatch({
   //     //il type è obbligatorio
@@ -53,7 +53,9 @@ export const toggleTodo = (i) => {
   return {
     //il type è obbligatorio
     type: "Toggle_todo",
-    id: i,
+    payload: axios.patch(API_URL + "/" + i, {
+      completed: value,
+    }),
     //todo
   };
 };

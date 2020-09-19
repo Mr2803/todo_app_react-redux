@@ -4,7 +4,7 @@ export default function singleTodo({ todoItem, onClick, id }) {
   return (
     <li
       className={todoItem.completed ? "completed" : ""}
-      onClick={() => onClick(id)}
+      onClick={() => onClick(id, !todoItem.completed)}
     >
       <span className={todoItem.completed ? "completed" : "uncomplete"}></span>
       {todoItem.todo}

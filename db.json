@@ -3,7 +3,7 @@
     {
       "id": 0,
       "todo": "Studiare react",
-      "completed": false
+      "completed": true
     },
     {
       "todo": "andare",
@@ -12,8 +12,23 @@
     },
     {
       "todo": "sddaas",
-      "completed": false,
+      "completed": true,
       "id": 2
+    },
+    {
+      "todo": "cascxa",
+      "completed": true,
+      "id": 3
+    },
+    {
+      "todo": "prova",
+      "completed": false,
+      "id": 4
+    },
+    {
+      "todo": "dsadas",
+      "completed": false,
+      "id": 5
     }
   ]
 }

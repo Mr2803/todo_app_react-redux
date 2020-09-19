@@ -9,20 +9,13 @@ import { Provider } from "react-redux";
 import logger from "redux-logger";
 import promise from "redux-promise-middleware";
 import axios from "axios";
-let storetodos = {
-  activeFilter: "ALL",
-  todos: [
-    { id: 0, todo: "Studiare react", completed: false },
-    { id: 1, todo: "Lavorare su bubble", completed: false },
-    { id: 2, todo: "Chiamare Bobo", completed: false },
-  ],
-};
-if (localStorage.getItem("mytodolist")) {
-  const currentState = JSON.parse(localStorage.getItem("mytodolist"));
-  if (currentState) {
-    storetodos = currentState;
-  }
-}
+let storetodos = {};
+// if (localStorage.getItem("mytodolist")) {
+//   const currentState = JSON.parse(localStorage.getItem("mytodolist"));
+//   if (currentState) {
+//     storetodos = currentState;
+//   }
+// }
 //window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 //creazione middleware
 // function logger({ getState, dispatch }) {
@@ -50,10 +43,10 @@ const store = createStore(
   composeEnhancers(applyMiddleware(logger, promise))
 );
 
-store.subscribe(() => {
-  const currentState = JSON.stringify(store.getState());
-  localStorage.setItem("mytodolist", currentState);
-});
+// store.subscribe(() => {
+//   const currentState = JSON.stringify(store.getState());
+//   localStorage.setItem("mytodolist", currentState);
+// });
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>

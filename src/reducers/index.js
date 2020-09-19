@@ -1,6 +1,6 @@
 export default function storeReducer(state = {}, action) {
   switch (action.type) {
-    case "Aggiungi_todo_FULFILLLED":
+    case "Aggiungi_todo_FULFILLED":
       return {
         ...state,
         activeFilter: "TODO",
@@ -14,16 +14,16 @@ export default function storeReducer(state = {}, action) {
           ...state.todos.slice(action.id + 1),
         ],
       };
-    case "Toggle_todo":
+    case "Toggle_todo_FULFILLED":
       return {
         ...state,
         todos: state.todos.map((todo) => {
-          if (todo.id !== action.id) {
+          if (todo.id !== action.payload.data.id) {
             return todo;
           }
           return {
             ...todo,
-            completed: !todo.completed,
+            completed: action.payload.data.completed,
           };
         }),
       };
