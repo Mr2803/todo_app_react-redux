@@ -8,7 +8,6 @@ import storeReducer from "./reducers/index";
 import { Provider } from "react-redux";
 import logger from "redux-logger";
 import promise from "redux-promise-middleware";
-import axios from "axios";
 let storetodos = {};
 // if (localStorage.getItem("mytodolist")) {
 //   const currentState = JSON.parse(localStorage.getItem("mytodolist"));

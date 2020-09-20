@@ -1,9 +1,16 @@
-import { API_URL } from "../config/config";
+import { API_URL, API_FILTER_URL } from "../config/config";
 import axios from "axios";
 export const getTodos = () => {
   return {
     type: "TODOS",
     payload: axios.get(API_URL),
+  };
+};
+
+export const getInitialFilter = () => {
+  return {
+    type: "INITIAL_FILTER",
+    payload: axios.get(API_FILTER_URL),
   };
 };
 
@@ -39,6 +46,7 @@ export const removeTodo = (i) => {
     //il type è obbligatorio
     type: "Rimuovi_todo",
     id: i,
+    payload: axios.delete(API_URL + "/" + i, { id: i }),
     //todo
   };
 };
@@ -63,6 +71,8 @@ export const toggleTodo = (i, value) => {
 export const filterTodo = (filter = "ALL") => {
   return {
     type: "SET_FILTER",
-    activeFilter: filter,
+    payload: axios.post(API_FILTER_URL, {
+      filter,
+    }),
   };
 };

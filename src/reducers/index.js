@@ -6,13 +6,14 @@ export default function storeReducer(state = {}, action) {
         activeFilter: "TODO",
         todos: [action.payload.data, ...state.todos],
       };
-    case "Rimuovi_todo":
+    case "Rimuovi_todo_FULFILLED":
       return {
         ...state,
-        todos: [
-          ...state.todos.slice(0, action.id),
-          ...state.todos.slice(action.id + 1),
-        ],
+        // todos: [
+        //   ...state.todos.slice(0, action.id),
+        //   ...state.todos.slice(action.id + 1),
+        // ],
+        todos: state.todos.filter((e) => e.id !== action.payload.config.id),
       };
     case "Toggle_todo_FULFILLED":
       return {
@@ -27,16 +28,22 @@ export default function storeReducer(state = {}, action) {
           };
         }),
       };
-    case "SET_FILTER": {
+    case "SET_FILTER_FULFILLED": {
       return {
         ...state,
-        activeFilter: action.activeFilter,
+        activeFilter: action.payload.data.filter,
       };
     }
     case "TODOS_FULFILLED": {
       return {
         ...state,
         todos: action.payload.data,
+      };
+    }
+    case "INITIAL_FILTER_FULFILLED": {
+      return {
+        ...state,
+        activeFilter: action.payload.data.filter,
       };
     }
     default:

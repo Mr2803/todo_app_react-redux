@@ -1,34 +1,32 @@
 {
   "todos": [
     {
-      "id": 0,
-      "todo": "Studiare react",
-      "completed": true
-    },
-    {
-      "todo": "andare",
+      "todo": "dasdasdas",
       "completed": false,
-      "id": 1
-    },
-    {
-      "todo": "sddaas",
-      "completed": true,
       "id": 2
     },
     {
-      "todo": "cascxa",
-      "completed": true,
+      "todo": "dnaljksd",
+      "completed": false,
       "id": 3
     },
     {
-      "todo": "prova",
-      "completed": false,
+      "todo": "ndjklasndlas",
+      "completed": true,
       "id": 4
     },
     {
-      "todo": "dsadas",
+      "todo": "nkdjoasnkdjloas",
       "completed": false,
       "id": 5
+    },
+    {
+      "todo": "njdloasndjlas",
+      "completed": true,
+      "id": 6
     }
-  ]
+  ],
+  "activeFilter": {
+    "filter": "ALL"
+  }
 }

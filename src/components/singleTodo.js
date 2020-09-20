@@ -1,13 +1,21 @@
 //componente presentazionale
 import React from "react";
-export default function singleTodo({ todoItem, onClick, id }) {
+import { removeTodo } from "../actions";
+export default function singleTodo({ todoItem, toggleTodo, id, removeTodo }) {
   return (
     <li
+      onClick={() => toggleTodo(id, !todoItem.completed)}
       className={todoItem.completed ? "completed" : ""}
-      onClick={() => onClick(id, !todoItem.completed)}
     >
       <span className={todoItem.completed ? "completed" : "uncomplete"}></span>
       {todoItem.todo}
+      <span
+        className="cross"
+        onClick={(e) => {
+          e.stopPropagation();
+          removeTodo(id);
+        }}
+      ></span>
       {/* <button
       // onClick={() => {
       //   this.removeTodo(i);
