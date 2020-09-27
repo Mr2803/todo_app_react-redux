@@ -2,36 +2,46 @@
   "todos": [
     {
       "todo": "dasdasdas",
-      "completed": false,
+      "completed": true,
       "id": 2
     },
     {
-      "todo": "dnaljksd",
+      "todo": "prp",
       "completed": false,
-      "id": 3
+      "id": 8
     },
     {
-      "todo": "ndjklasndlas",
-      "completed": true,
-      "id": 4
-    },
-    {
-      "todo": "nkdjoasnkdjloas",
+      "todo": "prova",
       "completed": false,
-      "id": 5
+      "id": 9
     },
     {
-      "todo": "njdloasndjlas",
-      "completed": true,
-      "id": 6
-    },
-    {
-      "todo": "provaaaa",
+      "todo": "prova",
       "completed": false,
-      "id": 7
+      "id": 10
+    },
+    {
+      "todo": "vsdfvsd",
+      "completed": false,
+      "id": 11
+    },
+    {
+      "todo": "fsdfsd",
+      "completed": false,
+      "id": 12
+    },
+    {
+      "todo": "dasdas",
+      "completed": false,
+      "id": 13
+    },
+    {
+      "todo": "dsadas",
+      "completed": false,
+      "id": 14
     }
   ],
   "activeFilter": {
-    "filter": "ALL"
+    "filter": "COMPLETED"
   }
 }

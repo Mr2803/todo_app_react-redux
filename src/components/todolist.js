@@ -4,8 +4,8 @@ import SingleTodo from "./singleTodo";
 import PropTypes from "prop-types";
 export default function todoList(props) {
   console.log("queste sono le props " + props.errorMessage);
-  if (props.hasError) {
-    throw new Error(props.errorMessage);
+  if (props.error.hasError) {
+    throw new Error(props.error.errorMessage);
   }
   return (
     <ul>

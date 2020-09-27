@@ -8,10 +8,17 @@ import storeReducer from "./reducers/index";
 import { Provider } from "react-redux";
 import logger from "redux-logger";
 import promise from "redux-promise-middleware";
-let storetodos = {};
+let storetodos = {
+  todos: [],
+  setFilter: "",
+  error: {
+    hasError: "",
+    errorMessage: "",
+  },
+};
 if (localStorage.getItem("mytodolist")) {
   const currentState = JSON.parse(localStorage.getItem("mytodolist"));
-  if (currentState && !currentState.hasError) {
+  if (currentState && !currentState.error.hasError) {
     storetodos = currentState;
   }
 }
@@ -44,7 +51,7 @@ const store = createStore(
 
 store.subscribe(() => {
   const state = store.getState();
-  if (!state.hasError) {
+  if (!state.error.hasError) {
     const currentState = JSON.stringify(state);
     localStorage.setItem("mytodolist", currentState);
   }

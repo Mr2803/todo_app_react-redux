@@ -1,18 +1,25 @@
 import { API_URL, API_FILTER_URL } from "../config/config";
+import {
+  TODOS,
+  ADD_TODO,
+  REMOVE_TODO,
+  TOGGLE_TODO,
+  SET_FILTER,
+} from "./actionTypes";
 import axios from "axios";
 export const getTodos = () => {
   return {
-    type: "TODOS",
+    type: TODOS,
     payload: axios.get(API_URL),
   };
 };
 
-export const getInitialFilter = () => {
-  return {
-    type: "INITIAL_FILTER",
-    payload: axios.get(API_FILTER_URL),
-  };
-};
+// export const getInitialFilter = () => {
+//   return {
+//     type: "INITIAL_FILTER",
+//     payload: axios.get(API_FILTER_URL),
+//   };
+// };
 
 export const addTodo = (todo) => {
   //   const todo = this.todoInput.current.value;
@@ -25,7 +32,7 @@ export const addTodo = (todo) => {
   return {
     //Aggiungi_todo_FULFILLED
     //il type è obbligatorio
-    type: "Aggiungi_todo",
+    type: ADD_TODO,
     payload: axios.post(API_URL, {
       todo: todo,
       completed: false,
@@ -44,7 +51,7 @@ export const removeTodo = (i) => {
   //   });
   return {
     //il type è obbligatorio
-    type: "Rimuovi_todo",
+    type: REMOVE_TODO,
     id: i,
     payload: axios.delete(API_URL + "/" + i, { id: i }),
     //todo
@@ -60,7 +67,7 @@ export const toggleTodo = (i, value) => {
   //   });
   return {
     //il type è obbligatorio
-    type: "Toggle_todo",
+    type: TOGGLE_TODO,
     payload: axios.patch(API_URL + "/" + i, {
       completed: value,
     }),
@@ -70,7 +77,7 @@ export const toggleTodo = (i, value) => {
 
 export const filterTodo = (filter = "ALL") => {
   return {
-    type: "SET_FILTER",
+    type: SET_FILTER,
     payload: axios.post(API_FILTER_URL, {
       filter,
     }),

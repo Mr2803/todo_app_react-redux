@@ -19,7 +19,7 @@ class App extends Component {
   componentDidMount() {
     console.log(this.props.getTodos);
     this.props.getTodos();
-    this.props.getInitialFilter();
+    // this.props.getInitialFilter();
   }
   // constructor() {
   //   super();
@@ -59,4 +59,4 @@ class App extends Component {
   }
 }
 
-export default connect(null, { getTodos, getInitialFilter })(App);
+export default connect(null, { getTodos })(App);

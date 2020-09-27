@@ -15,7 +15,7 @@ const filterTodos = (todos = [], filter = "ALL") => {
 const mapStateToProps = (state) => {
   return {
     ...state,
-    todos: filterTodos(state.todos, state.activeFilter),
+    todos: filterTodos(state.todos, state.setFilter),
   };
 };
 //mytodolist passa come secondo argomento alla connect i metodi che verranno mappati
