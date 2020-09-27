@@ -9,12 +9,12 @@ import { Provider } from "react-redux";
 import logger from "redux-logger";
 import promise from "redux-promise-middleware";
 let storetodos = {};
-// if (localStorage.getItem("mytodolist")) {
-//   const currentState = JSON.parse(localStorage.getItem("mytodolist"));
-//   if (currentState) {
-//     storetodos = currentState;
-//   }
-// }
+if (localStorage.getItem("mytodolist")) {
+  const currentState = JSON.parse(localStorage.getItem("mytodolist"));
+  if (currentState && !currentState.hasError) {
+    storetodos = currentState;
+  }
+}
 //window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 //creazione middleware
 // function logger({ getState, dispatch }) {
@@ -42,10 +42,13 @@ const store = createStore(
   composeEnhancers(applyMiddleware(logger, promise))
 );
 
-// store.subscribe(() => {
-//   const currentState = JSON.stringify(store.getState());
-//   localStorage.setItem("mytodolist", currentState);
-// });
+store.subscribe(() => {
+  const state = store.getState();
+  if (!state.hasError) {
+    const currentState = JSON.stringify(state);
+    localStorage.setItem("mytodolist", currentState);
+  }
+});
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>

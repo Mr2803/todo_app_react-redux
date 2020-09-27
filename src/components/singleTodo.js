@@ -1,6 +1,6 @@
 //componente presentazionale
 import React from "react";
-import { removeTodo } from "../actions";
+import PropTypes from "prop-types";
 export default function singleTodo({ todoItem, toggleTodo, id, removeTodo }) {
   return (
     <li
@@ -27,3 +27,15 @@ export default function singleTodo({ todoItem, toggleTodo, id, removeTodo }) {
     </li>
   );
 }
+
+//checkare se i dati passati sono corretti
+singleTodo.propTypes = {
+  todoItem: PropTypes.shape({
+    completed: PropTypes.bool,
+    todo: PropTypes.string,
+    id: PropTypes.number,
+  }),
+  toggleTodo: PropTypes.func.isRequired,
+  id: PropTypes.number,
+  removeTodo: PropTypes.func.isRequired,
+};

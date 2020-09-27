@@ -11,6 +11,7 @@ import Header from "./components/header";
 import AddNewTodo from "./containers/addnew";
 import MyTodoList from "./containers/mytodolist";
 import FooterFilter from "./containers/todofootercontainer";
+import ErrorBoundary from "./components/errorboundary";
 import { getTodos, getInitialFilter } from "./actions/index";
 import { connect } from "react-redux";
 // console.log(store.getState());
@@ -48,7 +49,9 @@ class App extends Component {
         <Header></Header>
         <div className="container">
           <AddNewTodo></AddNewTodo>
-          <MyTodoList />
+          <ErrorBoundary>
+            <MyTodoList />
+          </ErrorBoundary>
           <FooterFilter></FooterFilter>
         </div>
       </div>

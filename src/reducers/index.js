@@ -46,6 +46,20 @@ export default function storeReducer(state = {}, action) {
         activeFilter: action.payload.data.filter,
       };
     }
+    //REJECTED
+    case "TODOS_REJECTED":
+    case "Aggiungi_todo_REJECTED":
+    case "Rimuovi_todo_REJECTED":
+    case "Toggle_todo_REJECTED":
+    case "SET_FILTER_REJECTED":
+    case "INITIAL_FILTER_REJECTED":
+      return {
+        ...state,
+        hasError: true,
+        errorMessage: action.payload.message,
+      };
+
+    //END_REJECTED
     default:
       return { ...state };
   }

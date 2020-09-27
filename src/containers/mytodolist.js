@@ -14,6 +14,7 @@ const filterTodos = (todos = [], filter = "ALL") => {
 };
 const mapStateToProps = (state) => {
   return {
+    ...state,
     todos: filterTodos(state.todos, state.activeFilter),
   };
 };
